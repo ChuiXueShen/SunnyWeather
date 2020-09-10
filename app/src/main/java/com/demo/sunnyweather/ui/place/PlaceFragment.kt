@@ -55,7 +55,6 @@ class PlaceFragment : Fragment() {
             val places = result.getOrNull()
             Log.d(TAG, "${places?.size}");
             if (places != null) {
-
                 recyclerView.visibility = View.VISIBLE
                 bgImageView.visibility = View.GONE
                 viewModel.placeList.clear()
@@ -63,7 +62,7 @@ class PlaceFragment : Fragment() {
                 Log.d(TAG, "${viewModel.placeList?.size}");
                 adapter.notifyDataSetChanged()
             } else {
-                Toast.makeText(activity,"未能查询到任何地点~",Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "未能查询到任何地点~", Toast.LENGTH_SHORT).show()
                 result.exceptionOrNull()?.printStackTrace()
             }
         })
