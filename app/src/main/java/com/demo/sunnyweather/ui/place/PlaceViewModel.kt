@@ -5,7 +5,6 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.demo.sunnyweather.logic.Repository
 import com.demo.sunnyweather.logic.model.Place
-import retrofit2.http.Query
 
 /**
  * @package:    com.demo.sunnyweather.ui.place

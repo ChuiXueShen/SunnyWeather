@@ -13,6 +13,6 @@ import retrofit2.http.Query
  * @time：      2020/9/9 11:36
  */
 interface PlaceService {
-    @GET("v2.0/place?token=${SunnyWeatherApplication.TOKEN}&lang=zh_CN")
+    @GET("v2/place?token=${SunnyWeatherApplication.TOKEN}&lang=zh_CN")
     fun searchPlaces(@Query("query") query: String): Call<PlaceResponse>
 }

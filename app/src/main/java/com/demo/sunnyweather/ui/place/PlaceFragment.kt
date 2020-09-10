@@ -1,6 +1,7 @@
 package com.demo.sunnyweather.ui.place
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_place.*
  * @time：      2020/9/9 16:32
  */
 class PlaceFragment : Fragment() {
+    val TAG = "PlaceFragment"
     private lateinit var adapter: PlaceAdapter
     val viewModel by lazy { ViewModelProviders.of(this).get(PlaceViewModel::class.java) }
     override fun onCreateView(
@@ -36,6 +38,7 @@ class PlaceFragment : Fragment() {
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
         adapter = PlaceAdapter(this, viewModel.placeList)
+        recyclerView.adapter = adapter
         search_PlaceEdit.addTextChangedListener { editable ->
             val content = editable.toString()
             if (content.isNotEmpty()) {
@@ -50,11 +53,14 @@ class PlaceFragment : Fragment() {
 
         viewModel.placeLiveData.observe(this, Observer { result ->
             val places = result.getOrNull()
+            Log.d(TAG, "${places?.size}");
             if (places != null) {
+
                 recyclerView.visibility = View.VISIBLE
                 bgImageView.visibility = View.GONE
                 viewModel.placeList.clear()
                 viewModel.placeList.addAll(places)
+                Log.d(TAG, "${viewModel.placeList?.size}");
                 adapter.notifyDataSetChanged()
             } else {
                 Toast.makeText(activity,"未能查询到任何地点~",Toast.LENGTH_SHORT).show()
