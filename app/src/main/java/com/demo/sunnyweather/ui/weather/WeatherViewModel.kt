@@ -15,18 +15,21 @@ import com.demo.sunnyweather.logic.model.Location
  * @time：      2020/9/10 13:27
  */
 class WeatherViewModel : ViewModel() {
-    private val locationLiveData = MutableLiveData<Location>()
+
+    private val locationLiveData = MutableLiveData<Location>()//坐标LiveData对象
+
     var locationLng = ""//经度
     var locationLat = ""//纬度
-    var placeName = ""
-    val weatherLiveData = Transformations.switchMap(locationLiveData) { it ->
+    var placeName = "" //地名
 
+    //对坐标LiveData对象进行观察如果有变化则去通过仓库层获取数据 最终返回一个 数据LiveData对象
+    val weatherLiveData = Transformations.switchMap(locationLiveData) { it ->
         Repository.refreshWeather(it.lng, it.lat)
     }
 
+    //用于改变坐标LiveData对象
     fun refreshWeather(lng: String, lat: String) {
-        Log.d("PlaceFragmentre",  "${lat}  ${lng}");
         locationLiveData.value = Location(lng, lat)
-        Log.d("PlaceFragmentweather",  locationLiveData.value.toString());
+
     }
 }

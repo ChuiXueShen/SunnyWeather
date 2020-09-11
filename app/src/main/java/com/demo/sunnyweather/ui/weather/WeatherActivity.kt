@@ -36,6 +36,7 @@ class WeatherActivity : AppCompatActivity() {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             window.statusBarColor = Color.TRANSPARENT
         }
+
         setContentView(R.layout.activity_weather)
 
         if (viewModel.locationLng.isEmpty()) {

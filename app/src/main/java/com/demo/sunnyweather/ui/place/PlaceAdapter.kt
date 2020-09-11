@@ -19,7 +19,7 @@ import com.demo.sunnyweather.ui.weather.WeatherActivity
  * @describe：
  * @time：      2020/9/9 16:19
  */
-class PlaceAdapter(private val fragment: Fragment, private val placeList: List<Place>) :
+class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: List<Place>) :
     RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
     val TAG = "PlaceFragment"
 
@@ -38,11 +38,13 @@ class PlaceAdapter(private val fragment: Fragment, private val placeList: List<P
             val place = placeList[position]
             Log.d(TAG, place.toString());
             val intent = Intent(fragment.context, WeatherActivity::class.java).apply {
-                Log.d(TAG, "${ place.location.lng}");
+                Log.d(TAG, "${place.location.lng}");
                 putExtra("location_lng", place.location.lng)
                 putExtra("location_lat", place.location.lat)
             }
+            fragment.viewModel.savePlace(place)
             fragment.startActivity(intent)
+            fragment.activity?.finish()
         }
         return holder
     }
